@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexberrySampleLogging.Objects", "Objects\FlexberrySampleLogging.Objects.csproj", "97b70624-a688-4025-a0f1-fa322a08126c"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexberrySampleLogging.Tests", "Tests\FlexberrySampleLogging.Tests.csproj", "d5b156d7-9edb-480a-ab06-07cbda29dc71"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexberrySampleLogging.ODataBackend", "ODataBackend\FlexberrySampleLogging.ODataBackend.csproj", "83035067-26be-47f5-a472-5ec23284cd48"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexberrySampleLogging.IntegrationTests", "IntegrationTests\FlexberrySampleLogging.IntegrationTests.csproj", "d1f231b1-4cbe-4590-b515-525bbc45b50e"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+Debug|Any CPU = Debug|Any CPU
+Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		97b70624-a688-4025-a0f1-fa322a08126c.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		97b70624-a688-4025-a0f1-fa322a08126c.Debug|Any CPU.Build.0 = Debug|Any CPU
+		97b70624-a688-4025-a0f1-fa322a08126c.Release|Any CPU.ActiveCfg = Release|Any CPU
+		97b70624-a688-4025-a0f1-fa322a08126c.Release|Any CPU.Build.0 = Release|Any CPU
+		d5b156d7-9edb-480a-ab06-07cbda29dc71.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		d5b156d7-9edb-480a-ab06-07cbda29dc71.Debug|Any CPU.Build.0 = Debug|Any CPU
+		d5b156d7-9edb-480a-ab06-07cbda29dc71.Release|Any CPU.ActiveCfg = Release|Any CPU
+		d5b156d7-9edb-480a-ab06-07cbda29dc71.Release|Any CPU.Build.0 = Release|Any CPU
+		83035067-26be-47f5-a472-5ec23284cd48.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		83035067-26be-47f5-a472-5ec23284cd48.Debug|Any CPU.Build.0 = Debug|Any CPU
+		83035067-26be-47f5-a472-5ec23284cd48.Release|Any CPU.ActiveCfg = Release|Any CPU
+		83035067-26be-47f5-a472-5ec23284cd48.Release|Any CPU.Build.0 = Release|Any CPU
+		d1f231b1-4cbe-4590-b515-525bbc45b50e.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		d1f231b1-4cbe-4590-b515-525bbc45b50e.Debug|Any CPU.Build.0 = Debug|Any CPU
+		d1f231b1-4cbe-4590-b515-525bbc45b50e.Release|Any CPU.ActiveCfg = Release|Any CPU
+		d1f231b1-4cbe-4590-b515-525bbc45b50e.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
