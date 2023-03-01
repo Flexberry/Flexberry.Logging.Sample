@@ -1,9 +1,4 @@
-﻿
-
-
-
-
-CREATE TABLE Activity (
+﻿CREATE TABLE Activity (
  primaryKey UUID NOT NULL,
  activityName VARCHAR(255) NULL,
  avaluable BOOLEAN NULL,
