@@ -107,6 +107,13 @@
 
                 var token = builder.MapDataObjectRoute(modelBuilder);
             });
+
+            // Регистрация роута из nuget-пакета NewPlatform.Flexberry.LogService.WebApi.
+            /*app.UseMvc(routes =>
+            {
+                string baseUrl = new Uri(Configuration["BackendRoot"]).ToString();
+                routes.MapLogsRoute(baseUrl);
+            });*/
         }
 
         /// <summary>
