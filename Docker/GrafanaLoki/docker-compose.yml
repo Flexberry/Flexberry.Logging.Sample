@@ -11,6 +11,8 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - loki
+    volumes:
+      - LOKIDB:/loki
 
   promtail:
     image: flexberry/promtail
@@ -29,3 +31,6 @@ services:
       GF_SECURITY_ADMIN_USER: admin
     networks:
       - loki
+      
+volumes:
+  LOKIDB:
