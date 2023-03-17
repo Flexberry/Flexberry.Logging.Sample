@@ -60,6 +60,12 @@ module.exports = function(environment) {
         storePromiseErrors: true,
         showPromiseErrors: true,
         errorMessageFilterActive: false,
+
+        // Flag: indicates whether to send messages to backend
+        sendViaHttp: true,
+
+        // Backend logservice url
+        httpLogServiceUrl: backendUrl + '/api/logs',
       },
 
       // Options for Perforator service that can be used to calculate performance of components rendering.
