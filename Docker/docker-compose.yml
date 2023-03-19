@@ -1,5 +1,8 @@
 ﻿version: '3'
 
+networks:
+  loki:
+
 services:
   app:
     image: flexberrysamplelogging/app
@@ -18,5 +21,27 @@ services:
       - DB:/var/lib/pgsql/data/
     ports:
       - 5432:5432
+
+  loki:
+    image: flexberry/loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+    volumes:
+      - LOKIDB:/loki
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: usr123
+      GF_SECURITY_ADMIN_USER: admin
+    networks:
+      - loki
+
 volumes:
   DB:
+  LOKIDB:
