@@ -1,1 +1,0 @@
-docker build --no-cache -f Dockerfiles/Dockerfile.Loki -t flexberry/loki .
