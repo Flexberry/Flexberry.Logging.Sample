@@ -1,5 +1,8 @@
 ﻿version: '3'
 
+networks:
+  loki:
+
 services:
   app:
     image: flexberrysamplelogging/app
@@ -11,6 +14,8 @@ services:
       - UploadUrl=Uploads
       - BackendRoot=https://localhost
       - DefConnStr=SERVER=app-postgres-db;User ID=flexberryuser;Password=jhv;Port=5432;database=appdb;
+    networks:
+      - loki
 
   app-postgres-db:
     image: flexberrysamplelogging/postgre-sql
@@ -18,12 +23,16 @@ services:
       - DB:/var/lib/pgsql/data/
     ports:
       - 5432:5432
+    networks:
+      - loki
 
   loki:
     image: flexberry/loki
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
     volumes:
       - LOKIDB:/loki
 
@@ -34,6 +43,8 @@ services:
     environment:
       GF_SECURITY_ADMIN_PASSWORD: usr123
       GF_SECURITY_ADMIN_USER: admin
+    networks:
+      - loki
 
 volumes:
   DB:
