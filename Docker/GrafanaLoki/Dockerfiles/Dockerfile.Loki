@@ -1,3 +1,0 @@
-﻿FROM grafana/loki:2.7.4
-
-COPY Dockerfiles/loki-config.yaml /etc/loki/loki-config.yaml

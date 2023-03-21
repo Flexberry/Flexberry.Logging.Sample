@@ -18,6 +18,7 @@
     using NewPlatform.Flexberry.ORM.ODataServiceCore.Common.Exceptions;
     using NewPlatform.Flexberry.Services;
     using Unity;
+    using ICSSoft.STORMNET.Controllers.Extensions;
 
     /// <summary>
     /// Класс настройки запуска приложения.
@@ -109,11 +110,10 @@
             });
 
             // Регистрация роута из nuget-пакета NewPlatform.Flexberry.LogService.WebApi.
-            /*app.UseMvc(routes =>
+            app.UseMvc(routes =>
             {
-                string baseUrl = new Uri(Configuration["BackendRoot"]).ToString();
-                routes.MapLogsRoute(baseUrl);
-            });*/
+                routes.MapLogsRoute();
+            });
         }
 
         /// <summary>

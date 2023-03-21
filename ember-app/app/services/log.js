@@ -743,12 +743,9 @@ export default Service.extend(Evented, {
     category.name === messageCategory.debug.name && !this.get('storeDebugMessages') ||
     category.name === messageCategory.deprecate.name && !this.get('storeDeprecationMessages') ||
     category.name === messageCategory.promise.name && !this.get('storePromiseErrors')) {
-      new RSVP.Promise((resolve) => {
-        this._triggerEvent(category.name);
-        resolve();
-      });
-      return true;
+      this._triggerEvent(category.name);
 
+      return true;
     }
 
     let isSkippedMessage = false;

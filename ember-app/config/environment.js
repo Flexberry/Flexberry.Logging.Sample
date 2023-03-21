@@ -52,10 +52,10 @@ module.exports = function(environment) {
 
         // Flag: indicates whether to store error messages or not.
         storeErrorMessages: true,
-        storeWarnMessages: false,
+        storeWarnMessages: true,
         storeLogMessages: true,
-        storeInfoMessages: false,
-        storeDebugMessages: false,
+        storeInfoMessages: true,
+        storeDebugMessages: true,
         storeDeprecationMessages: false,
         storePromiseErrors: true,
         showPromiseErrors: true,
