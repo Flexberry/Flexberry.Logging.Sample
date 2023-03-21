@@ -8,14 +8,13 @@ services:
     image: flexberrysamplelogging/app
     links:
       - app-postgres-db:app-postgres-db
+      - loki:loki
     ports:
       - 80:80
     environment:
       - UploadUrl=Uploads
       - BackendRoot=https://localhost
       - DefConnStr=SERVER=app-postgres-db;User ID=flexberryuser;Password=jhv;Port=5432;database=appdb;
-    networks:
-      - loki
 
   app-postgres-db:
     image: flexberrysamplelogging/postgre-sql
