@@ -20,7 +20,7 @@ services:
   app-postgres-db:
     image: flexberrysamplelogging/postgre-sql
     volumes:
-      - DB:/var/lib/pgsql/data/
+      - GLPGDB:/var/lib/pgsql/data/
     ports:
       - 5432:5432
     networks:
@@ -47,5 +47,5 @@ services:
       - loki
 
 volumes:
-  DB:
+  GLPGDB:
   LOKIDB:
