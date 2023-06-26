@@ -19,6 +19,7 @@
     using NewPlatform.Flexberry.Services;
     using Unity;
     using ICSSoft.STORMNET.Controllers.Extensions;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Класс настройки запуска приложения.
@@ -76,7 +77,8 @@
         /// </remarks>
         /// <param name="app">An application configurator.</param>
         /// <param name="env">Information about web hosting environment.</param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        /// <param name="loggerFactory">Microsoft.Extensions.Logging loggerFactory.</param>
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             LogService.LogInfo("Инициирован запуск приложения.");
 
@@ -92,6 +94,11 @@
                 endpoints.MapControllers();
                 endpoints.MapHealthChecks("/health");
             });
+
+            // Отправка syslog сообщения.
+            loggerFactory.AddSyslog("loki", 1514);
+            var logger = loggerFactory.CreateLogger("SyslogLogger");
+            logger.Log(LogLevel.Warning, "Инициирован запуск приложения.(syslog)");
 
             app.UseODataService(builder =>
             {
