@@ -16,6 +16,7 @@
 
 Файл настроек конфигурации `promtail-config.yaml` может выглядеть следующим образом:
 
+```yaml
     server:
       http_listen_port: 9080
       grpc_listen_port: 0
@@ -34,6 +35,7 @@
         labels:
           job: varlogs
           __path__: /var/log/*log
+```
 
 * В разделе `server` прописываем порты "прослушки".
 * Блок `positions` определяет как сохранять promtail файлы
@@ -46,6 +48,7 @@
 
 ## Вариант настройки для реализации promtail в виде syslog-сервера
 
+```yaml
     server:
       http_listen_port: 9080
       grpc_listen_port: 0
@@ -75,6 +78,7 @@
           target_label: facility 
         - source_labels: [__syslog_connection_hostname] 
           target_label: connection_hostname
+```
 		  
 В этом случае, promtail будет принимать syslog сообщения и отправлять их в loki, выполняя необходимые преобразования. Promtail принимает только TCP - сообщения, содержание сообщения должно соответствовать формату RFC 5424.
 

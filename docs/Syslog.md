@@ -34,7 +34,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerF
 	...
 
 	// Отправка TCP-syslog сообщения с помощью кастомного логгера.
-    string syslogAddress = Configuration["Logging:SyslogSettings:Server"];
+	string syslogAddress = Configuration["Logging:SyslogSettings:Server"];
     int syslogPort = int.Parse(Configuration["Logging:SyslogSettings:Port"]);
     int facility = int.Parse(Configuration["Logging:SyslogSettings:Facility"]);
     int version = int.Parse(Configuration["Logging:SyslogSettings:Version"]);
