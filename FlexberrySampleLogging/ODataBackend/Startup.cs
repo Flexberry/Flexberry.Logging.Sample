@@ -1,24 +1,28 @@
 ﻿namespace IIS.FlexberrySampleLogging
 {
     using System;
-    using ICSSoft.Services;
-    using ICSSoft.STORMNET;
-    using ICSSoft.STORMNET.Business;
-    using ICSSoft.STORMNET.Security;
-    using IIS.Caseberry.Logging.Objects;
+    using Unity;
+    using Microsoft.Extensions.Logging;
     using Microsoft.AspNet.OData.Extensions;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+
+    using ICSSoft.Services;
+    using ICSSoft.STORMNET;
+    using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Security;
+    using ICSSoft.STORMNET.Controllers.Extensions;
+    using IIS.Caseberry.Logging.Objects;
     using NewPlatform.Flexberry.ORM.ODataService.Extensions;
     using NewPlatform.Flexberry.ORM.ODataService.Files;
     using NewPlatform.Flexberry.ORM.ODataService.Model;
     using NewPlatform.Flexberry.ORM.ODataService.WebApi.Extensions;
     using NewPlatform.Flexberry.ORM.ODataServiceCore.Common.Exceptions;
     using NewPlatform.Flexberry.Services;
-    using Unity;
-    using ICSSoft.STORMNET.Controllers.Extensions;
+
+    using IIS.FlexberrySampleLogging.SyslogLogging;
 
     /// <summary>
     /// Класс настройки запуска приложения.
@@ -76,7 +80,8 @@
         /// </remarks>
         /// <param name="app">An application configurator.</param>
         /// <param name="env">Information about web hosting environment.</param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        /// <param name="loggerFactory">Microsoft.Extensions.Logging loggerFactory.</param>
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             LogService.LogInfo("Инициирован запуск приложения.");
 
@@ -92,6 +97,17 @@
                 endpoints.MapControllers();
                 endpoints.MapHealthChecks("/health");
             });
+
+            // Отправка TCP-syslog сообщения с помощью кастомного логгера.
+            string syslogAddress = Configuration["Logging:SyslogSettings:Server"];
+            int syslogPort = int.Parse(Configuration["Logging:SyslogSettings:Port"]);
+            int facility = int.Parse(Configuration["Logging:SyslogSettings:Facility"]);
+            int version = int.Parse(Configuration["Logging:SyslogSettings:Version"]);
+            string appName = Configuration["Logging:SyslogSettings:AppName"];
+
+            loggerFactory.AddSyslog(syslogAddress, syslogPort, facility, version, 1, appName);
+            var logger = loggerFactory.CreateLogger("SyslogLogger");
+            logger.Log(LogLevel.Warning, "Инициирован запуск приложения.(syslog)");
 
             app.UseODataService(builder =>
             {
