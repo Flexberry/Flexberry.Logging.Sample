@@ -1,25 +1,28 @@
 ﻿namespace IIS.FlexberrySampleLogging
 {
     using System;
-    using ICSSoft.Services;
-    using ICSSoft.STORMNET;
-    using ICSSoft.STORMNET.Business;
-    using ICSSoft.STORMNET.Security;
-    using IIS.Caseberry.Logging.Objects;
+    using Unity;
+    using Microsoft.Extensions.Logging;
     using Microsoft.AspNet.OData.Extensions;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+
+    using ICSSoft.Services;
+    using ICSSoft.STORMNET;
+    using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Security;
+    using ICSSoft.STORMNET.Controllers.Extensions;
+    using IIS.Caseberry.Logging.Objects;
     using NewPlatform.Flexberry.ORM.ODataService.Extensions;
     using NewPlatform.Flexberry.ORM.ODataService.Files;
     using NewPlatform.Flexberry.ORM.ODataService.Model;
     using NewPlatform.Flexberry.ORM.ODataService.WebApi.Extensions;
     using NewPlatform.Flexberry.ORM.ODataServiceCore.Common.Exceptions;
     using NewPlatform.Flexberry.Services;
-    using Unity;
-    using ICSSoft.STORMNET.Controllers.Extensions;
-    using Microsoft.Extensions.Logging;
+
+    using IIS.FlexberrySampleLogging.SyslogLogging;
 
     /// <summary>
     /// Класс настройки запуска приложения.
@@ -95,8 +98,14 @@
                 endpoints.MapHealthChecks("/health");
             });
 
-            // Отправка syslog сообщения.
-            loggerFactory.AddSyslog("loki", 1514);
+            // Отправка TCP-syslog сообщения с помощью кастомного логгера.
+            string syslogAddress = Configuration["Logging:SyslogSettings:Server"];
+            int syslogPort = int.Parse(Configuration["Logging:SyslogSettings:Port"]);
+            int facility = int.Parse(Configuration["Logging:SyslogSettings:Facility"]);
+            int version = int.Parse(Configuration["Logging:SyslogSettings:Version"]);
+            string appName = Configuration["Logging:SyslogSettings:AppName"];
+
+            loggerFactory.AddSyslog(syslogAddress, syslogPort, facility, version, 1, appName);
             var logger = loggerFactory.CreateLogger("SyslogLogger");
             logger.Log(LogLevel.Warning, "Инициирован запуск приложения.(syslog)");
 

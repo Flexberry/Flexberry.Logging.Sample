@@ -1,4 +1,4 @@
-﻿namespace IIS.FlexberrySampleLogging
+﻿namespace IIS.FlexberrySampleLogging.SyslogLogging
 {
     public enum SyslogLogLevel
     {
