@@ -32,18 +32,16 @@ Syslog имеет несколько стандартизаций:
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
 {
 	...
-
 	// Отправка TCP-syslog сообщения с помощью кастомного логгера.
 	string syslogAddress = Configuration["Logging:SyslogSettings:Server"];
-    int syslogPort = int.Parse(Configuration["Logging:SyslogSettings:Port"]);
-    int facility = int.Parse(Configuration["Logging:SyslogSettings:Facility"]);
-    int version = int.Parse(Configuration["Logging:SyslogSettings:Version"]);
-    string appName = Configuration["Logging:SyslogSettings:AppName"];
-
-    loggerFactory.AddSyslog(syslogAddress, syslogPort, facility, version, 1, appName);
-    var logger = loggerFactory.CreateLogger("SyslogLogger");
-    logger.Log(LogLevel.Warning, "Инициирован запуск приложения.(syslog)");
+	int syslogPort = int.Parse(Configuration["Logging:SyslogSettings:Port"]);
+	int facility = int.Parse(Configuration["Logging:SyslogSettings:Facility"]);
+	int version = int.Parse(Configuration["Logging:SyslogSettings:Version"]);
+	string appName = Configuration["Logging:SyslogSettings:AppName"];
 	
+	loggerFactory.AddSyslog(syslogAddress, syslogPort, facility, version, 1, appName);
+	var logger = loggerFactory.CreateLogger("SyslogLogger");
+	logger.Log(LogLevel.Warning, "Инициирован запуск приложения.(syslog)");
 	...
 }
 ```
@@ -69,7 +67,7 @@ STRUCTURED-DATA - что должно идти после PROCID в данном
 В конечном итоге логи должны попасть в Loki. Но Loki не умеет напрямую с ними работать, поэтому для приема и преобразований выступает сервис Promtail. Promtail в случае syslog работает только с TCP и по стандарту RFC 5424.
 Для включения syslog-сервера в promtail необходимо написать следующую конфигурацию в .yaml
 
-```
+```yaml
 server:
   http_listen_port: 9080
   grpc_listen_port: 0
