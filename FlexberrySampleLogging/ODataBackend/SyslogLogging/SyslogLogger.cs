@@ -11,13 +11,13 @@
     /// </summary>
     public class SyslogLogger : ILogger
     {
-        private string host;
-        private int port;
+        private readonly string host;
+        private readonly int port;
 
-        private int syslogFacility;
-        private int version;
-        private int procId;
-        private string appName;
+        private readonly int syslogFacility;
+        private readonly int version;
+        private readonly int procId;
+        private readonly string appName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SyslogLogger"/> class.
@@ -132,13 +132,13 @@
              */
 
             int priority = syslogFacility * 8 + (int)logLevel;
-            int version = this.version;
+            int versionInfo = version;
             string dateTime = DateTime.Now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ssZ");
             string hostName = Dns.GetHostName();
-            string appName = this.appName;
-            int procId = this.procId;
+            string appNameInfo = appName;
+            int procIdInfo = procId;
 
-            string logMessage = string.Format("<{0}>{1} {2} {3} {4} {5} - - {6}", priority, version, dateTime, hostName, appName, procId, message);
+            string logMessage = $"<{priority}>{versionInfo} {dateTime} {hostName} {appNameInfo} {procIdInfo} - - {message}";
             logMessage += Environment.NewLine;
 
             var bytes = Encoding.UTF8.GetBytes(logMessage);
