@@ -8,13 +8,13 @@
     /// </summary>
     public class SyslogLoggerProvider : ILoggerProvider
     {
-        private string host;
-        private int port;
+        private readonly string host;
+        private readonly int port;
 
-        private int syslogFacility;
-        private int version;
-        private int procId;
-        private string appName;
+        private readonly int syslogFacility;
+        private readonly int version;
+        private readonly int procId;
+        private readonly string appName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SyslogLoggerProvider"/> class.
@@ -61,6 +61,7 @@
 
         public void Dispose()
         {
+            // Cleanup
         }
     }
 }
