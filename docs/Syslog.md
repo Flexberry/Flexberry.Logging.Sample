@@ -16,7 +16,7 @@ Syslog имеет несколько стандартизаций:
 
 ## Отправка сообщений
 
-В примере, на стороне NetcoreBackend для отправки syslog - сообщений сделан логгенр на основе стандартного логгера ILogger (Microsoft.Extensions.Logging;)
+В примере, на стороне NetcoreBackend для отправки syslog - сообщений сделан логгер на основе стандартного логгера ILogger (Microsoft.Extensions.Logging)
 Для этого добавлены следующие классы:
 
 - **SyslogLoggerProvider** - Провайдер для syslog-логгера.
@@ -53,7 +53,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerF
 ```
 <165>1 2003-08-24T05:14:15.000003-07:00 192.0.2.1 myproc 8710 - - TestMessage1
 
-<165> - приоритет, расичтывается как 8 * Facility(код источника) + Severity(важность).
+<165> - приоритет, расчтывается, как 8 * Facility(код источника) + Severity(важность).
 1 - Version
 2003-08-24T05:14:15.000003-07:00 - Дата-Время.Тип Timestamp
 192.0.2.1 - хост источника сообщения.
