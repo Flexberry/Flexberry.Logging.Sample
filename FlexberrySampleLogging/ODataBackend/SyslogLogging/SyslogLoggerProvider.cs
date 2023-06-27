@@ -2,6 +2,7 @@
 {
     using Microsoft.Extensions.Logging;
     using ICSSoft.STORMNET;
+    using System;
 
     /// <summary>
     /// Провайдер для syslog-логгера.
@@ -62,6 +63,7 @@
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
